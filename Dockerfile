@@ -27,3 +27,5 @@ COPY . .
 
 # Install Symfony dependencies
 RUN composer install
+
+RUN php -S 0.0.0.0:8000 -t public/
