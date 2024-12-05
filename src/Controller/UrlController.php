@@ -6,7 +6,9 @@ namespace App\Controller;
 
 use App\Service\UrlShortenerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -33,4 +35,15 @@ class UrlController extends AbstractController
 
         return new JsonResponse(['success' => true, 'shortCode' => $shortcode]);
     }
+
+    #[Route('/{shortCode}', name: 'redirect', methods: ['GET'])]
+    public function redirectToOriginaUrl(string $shortcode): RedirectResponse
+    {
+        try {
+            $originalUrl = $this->urlShortenerService->redirectUrl($shortcode);
+            return $this->redirect($originalUrl);
+        } catch (\Throwable $th) {
+            throw $this->createNotFoundException('The requested URL was not found.');
+        }
+    } 
 }

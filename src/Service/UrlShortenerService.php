@@ -29,12 +29,24 @@ class UrlShortenerService
         $url->setOriginalUrl($orignalUrl);
         $url->setShortenedUrl($shortCode);
         $url->setCreatedAt(new \DateTimeImmutable());
-        $url->setHits("test");
         
         $this->em->persist($url);
         $this->em->flush();
 
         return $shortCode;
+    }
+
+    public function redirectUrl(string $shortenedUrl): string
+    {
+        $shortCode = $this->em->getRepository(Url::class)->findOneBy(["shortenedUrl"=> $shortenedUrl]);
+        if (!$shortCode) {
+            throw new \Exception("Shortened URL not found.");
+        }
+
+        $shortCode->incrementHits();
+        $this->em->flush();
+
+        return $shortCode->getOriginalUrl();
     }
 
     private function generateShortCode(): string

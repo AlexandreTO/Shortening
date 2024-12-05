@@ -25,8 +25,8 @@ class Url
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $hits = null;
+    #[ORM\Column(type: "integer")]
+    private ?int $hits = 0;
 
     public function getId(): ?int
     {
@@ -62,6 +62,7 @@ class Url
         return $this->createdAt;
     }
 
+    #[ORM\PrePersist]
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
@@ -69,22 +70,20 @@ class Url
         return $this;
     }
 
-    public function getHits(): ?string
+    public function getHits(): ?int
     {
         return $this->hits;
     }
 
-    public function setHits(string $hits): static
+    public function setHits(int $hits): static
     {
         $this->hits = $hits;
 
         return $this;
     }
-    #[ORM\PrePersist]
-    public function setCreatedAtValue(): void
+
+    public function incrementHits(): void
     {
-        if ($this->createdAt === null) {
-            $this->createdAt = new \DateTimeImmutable(); // Set the current time
-        }
+        $this->hits++;
     }
 }
