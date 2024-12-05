@@ -8,6 +8,7 @@ use App\Repository\UrlRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UrlRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Url
 {
     #[ORM\Id]
@@ -78,5 +79,12 @@ class Url
         $this->hits = $hits;
 
         return $this;
+    }
+    #[ORM\PrePersist]
+    public function setCreatedAtValue(): void
+    {
+        if ($this->createdAt === null) {
+            $this->createdAt = new \DateTimeImmutable(); // Set the current time
+        }
     }
 }

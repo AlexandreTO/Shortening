@@ -28,6 +28,8 @@ class UrlShortenerService
         $url = new Url();
         $url->setOriginalUrl($orignalUrl);
         $url->setShortenedUrl($shortCode);
+        $url->setCreatedAt(new \DateTimeImmutable());
+        $url->setHits("test");
         
         $this->em->persist($url);
         $this->em->flush();
