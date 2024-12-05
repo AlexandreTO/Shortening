@@ -24,6 +24,9 @@ class Url
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $hits = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -61,6 +64,18 @@ class Url
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getHits(): ?string
+    {
+        return $this->hits;
+    }
+
+    public function setHits(string $hits): static
+    {
+        $this->hits = $hits;
 
         return $this;
     }
