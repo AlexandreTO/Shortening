@@ -7,7 +7,8 @@ RUN apt-get update && apt-get install -y \
     unzip \
     curl \
     libonig-dev \
-    libxml2-dev
+    libxml2-dev \
+    postgresql-client
 
 # Install PHP extensions
 RUN docker-php-ext-install pdo pdo_pgsql mbstring exif pcntl bcmath

@@ -33,7 +33,6 @@ class UrlShortenerService
         $this->em->flush();
 
         return $shortCode;
-        
     }
 
     private function generateShortCode(): string
