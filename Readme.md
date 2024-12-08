@@ -1,5 +1,7 @@
 # Shortening URL
 
+Shortening URL project
+
 ## Docker
 
 ```Bash
@@ -9,4 +11,4 @@ docker-compose --env-file .env.local up -d
 
 ## Symfony
 
-PHP 8.2 minimum, Symfony 7 and PostgreSQL.
+PHP 8.2 minimum, Symfony 7, Docker and PostgreSQL.
