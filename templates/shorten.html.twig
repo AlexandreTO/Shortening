@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}URL Shortener{% endblock %}
+
+{% block body %}
+    <h1>URL Shortener</h1>
+    <form method="post" action="{{ path('shorten_url') }}">
+        <label for="originalUrl">Enter your URL:</label>
+        <input type="url" id="originalUrl" name="originalUrl" placeholder="#" required>
+        <button type="submit">Shorten</button>
+    </form>
+
+    {% if shortenedUrl is defined %}
+        <p><strong>Shortened URL:</strong> <a href="{{ shortenedUrl }}" target="_blank">{{ shortenedUrl }}</a></p>
+    {% endif %}
+{% endblock %}
