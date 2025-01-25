@@ -21,7 +21,7 @@ class UrlController extends AbstractController
     {
         $this->urlShortenerService = $urlShortenerService;
     }
-
+    /** Shorten the url given */
     #[Route('/shorten', name: 'url_shorten', methods: ['POST'])]
     public function shorten(Request $request): JsonResponse
     {
@@ -36,6 +36,7 @@ class UrlController extends AbstractController
         return new JsonResponse(['success' => true, 'shortCode' => $shortcode]);
     }
 
+    /** Redirect the user after using the shortcode */
     #[Route('/{shortCode}', name: 'redirect', methods: ['GET'])]
     public function redirectToOriginaUrl(string $shortcode): RedirectResponse
     {
